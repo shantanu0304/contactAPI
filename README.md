@@ -7,6 +7,10 @@ To use this api first install dependencies by running the below command:-
 ```
 pip install -r requirements.txt
 ```
+and install mongoDB either by referring to its official website or by using below link
+```
+sudo apt-get install mongodb
+```
 Then verify the version of MongoDB and Flask to make sure everything is installed properly (should be latest) by using the following commands:-
 ```
 mongo --version
