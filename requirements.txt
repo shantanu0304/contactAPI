@@ -1,0 +1,4 @@
+Flask
+Werkzeug==0.15.5
+pymongo
+bson
