@@ -21,14 +21,14 @@ def app():
         _json = request.json
         _name = _json['name']
         _email = _json['email']
-        _mobile = _json['mobile']
+        _phone = _json['mobile']
         x = dumps(mongo.db.contact.find({"_id": _email}))
         print(x)
         if x != "[]":
             return jsonify("Email Already Exist, Please use a different Email!!!")
-        elif _name and _email and _mobile and request.method == 'POST':
+        elif _name and _email and _phone and request.method == 'POST':
             mongo.db.contact.insert(
-                {'_id': _email, 'name': _name, 'mobile': _mobile})
+                {'_id': _email, 'name': _name, 'mobile': _phone})
             resp = jsonify("User Added Successfully")
             resp.status_code = 200
             return resp
@@ -81,13 +81,13 @@ def app():
     @app.route('/update', methods=['PUT'])
     def updateUserInfo():
         _json = request.json
-        email = _json["email"]
-        name = _json["name"]
-        mobile = _json["mobile"]
+        _email = _json["email"]
+        _name = _json["name"]
+        _phone = _json["mobile"]
 
-        if name and email and mobile and request.method == 'PUT':
+        if _name and _email and _phone and request.method == 'PUT':
             mongo.db.contact.update_one(
-                {"_id": email}, {'$set': {'name': name, 'mobile': name}})
+                {"_id": _email}, {'$set': {'name': _name, 'mobile': _phone}})
             resp = jsonify("User Info. Updated Successfully")
             resp.status_code = 200
             return resp
