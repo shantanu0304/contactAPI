@@ -39,7 +39,7 @@ def app():
     @app.errorhandler(404)
     def not_found(error=None):
         message = {
-            'message': 'Sorry, Unable to process your request. Please fill the details carefully !!!'
+            'message': 'Sorry, Unable to process your request. Please fill the details correctly !!!'
         }
         resp = jsonify(message)
         resp.status_code = 404
@@ -49,11 +49,11 @@ def app():
     @app.route('/searchByEmail', methods=['GET'])
     def searchByEmail():
         _json = request.json
-        email = _json["email"]
-        usr = mongo.db.contact.find({"_id": email})
-        resp = dumps(usr)
+        _email = _json["email"]
+        _usr = mongo.db.contact.find({"_id": _email})
+        resp = dumps(_usr)
         if resp == "[]":
-            return jsonify("User with this Email is not found")
+            return jsonify("Unable to find the User with this Email")
         return resp
 
 
@@ -71,8 +71,8 @@ def app():
     @app.route('/delete', methods=['DELETE'])
     def delete_user():
         _json = request.json
-        email = _json["email"]
-        mongo.db.contact.delete_one({"_id": email})
+        _email = _json["email"]
+        mongo.db.contact.delete_one({"_id": _email})
         resp = jsonify("User Deleted Successfully")
         resp.status_code = 200
         return resp
